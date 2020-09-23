@@ -1,14 +1,15 @@
 #include <ros.h>
-#include <r6g_steppermotor/Step_Signals.h>
+#include <std_msgs/Int64MultiArray.h>
 
 ros::NodeHandle  nh;
 
+
+
 int SJ1 = 0; 
 
-
-void Pasos(r6g_steppermotor::Step_Signals &Steps)
+void Pasos( const std_msgs::Int64MultiArray& Steps)
 {
-  SJ1 = Steps.steps1;
+  SJ1 = Steps.data[0];
   for(int stps = 0; stps <= SJ1; stps++)
   {
     digitalWrite(13, HIGH);
@@ -18,7 +19,7 @@ void Pasos(r6g_steppermotor::Step_Signals &Steps)
   }
 }
 
-ros::Subscriber<r6g_steppermotor::Step_Signals> Micro("Channel",&Pasos);
+ros::Subscriber<std_msgs::Int64MultiArray> Micro("Channel",&Pasos);
 
 void setup()
 { 
