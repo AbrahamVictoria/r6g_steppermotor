@@ -49,8 +49,8 @@ void setup()
   DoF6.SetRelation(1);
 
   //Configuración de Velocidad Angular Relativa (Método: Delay entre Pasos). 
-  DoF1.SetSpeedRotation(3);
-  DoF2.SetSpeedRotation(5);
+  DoF1.SetSpeedRotation(4);
+  DoF2.SetSpeedRotation(4);
   DoF3.SetSpeedRotation(4);
   DoF4.SetSpeedRotation(2);
   DoF5.SetSpeedRotation(1);
@@ -75,7 +75,7 @@ void setup()
   ResetMotors();
 
   //Valores iniciales de cada grado de libertad.
-  O = {0,-71,75,0,0,0};
+  O = {0,-54,80,0,0,0};
   N = {0,0,0,0,0,0};
 
   //Posición Home.
@@ -84,11 +84,19 @@ void setup()
 
 void loop()
 {
+  delay(1000);
+  /*
   //Test moving.
-  MoveJ(90,0,0,0,0,0);  
-  MoveJ(0,90,0,0,0,0);
-  MoveJ(0,0,90,0,0,0);
+  int mov = 30;
+  MoveJ(0,mov,0,0,0,0);  
+  delay(1000);
   MoveJ(0,0,0,0,0,0);
+  delay(1000);
+  MoveJ(0,-1*mov,0,0,0,0);  
+  delay(1000);
+  MoveJ(0,0,0,0,0,0);
+  delay(1000);
+  */
 }
 
 void MoveJ(float Jn1, float Jn2, float Jn3, float Jn4, float Jn5, float Jn6)
