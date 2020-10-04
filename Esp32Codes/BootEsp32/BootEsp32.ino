@@ -19,12 +19,13 @@ Joint DoF5;
 Joint DoF6;
 
 //Almacenamiento de valores de cada articulación.
-typedef struct joints 
+
+struct Joints 
 {
   float J1, J2, J3, J4, J5, J6;
-}GDL;
-GDL O;
-GDL N;
+};
+
+struct Joints FlagAngles = {0,0,0,0,0,0};
 
 
 void setup()
@@ -72,22 +73,34 @@ void setup()
   DoF5.SetSoftwareLimits(-70,70);
   DoF6.SetSoftwareLimits(-200,200);
 
+  //Inicialización de ángulos.
+  DoF1.SetInitialAngle(0);
+  DoF2.SetInitialAngle(-71);
+  DoF3.SetInitialAngle(0);
+  DoF4.SetInitialAngle(0);
+  DoF5.SetInitialAngle(0);
+  DoF6.SetInitialAngle(0);
+
   ResetMotors();
 
   //Valores iniciales de cada grado de libertad.
-  O = {0,-54,80,0,0,0};
-  N = {0,0,0,0,0,0};
+  //O = {0,-54,80,0,0,0};
+  //N = {0,0,0,0,0,0};
 
   //Posición Home.
-  MoveJ(0,0,0,0,0,0);
+  //float homePosition[6] = {0};
+  MoveJ(FlagAngles);
 }
 
 void loop()
 {
+  FlagAngles.J3 = -90; 
+  MoveJ(FlagAngles);
+  delay(1000);
+  FlagAngles.J3 = 0;
+  MoveJ(FlagAngles);
   delay(1000);
   /*
-  //Test moving.
-  int mov = 30;
   MoveJ(0,mov,0,0,0,0);  
   delay(1000);
   MoveJ(0,0,0,0,0,0);
@@ -99,18 +112,18 @@ void loop()
   */
 }
 
-void MoveJ(float Jn1, float Jn2, float Jn3, float Jn4, float Jn5, float Jn6)
+void MoveJ(struct Joints FlagAngles)
 {
-  N = {Jn1, Jn2, Jn3, Jn4, Jn5, Jn6};
+  //N = {Jn1, Jn2, Jn3, Jn4, Jn5, Jn6};
 
   //Calculo de pasos para cada articulación. 
   int Steps[6] = {0,0,0,0,0,0};
-  Steps[0] = DoF1.DegreesToSteps(O.J1,N.J1);
-  Steps[1] = DoF1.DegreesToSteps(O.J2,N.J2);
-  Steps[2] = DoF1.DegreesToSteps(O.J3,N.J3);
-  Steps[3] = DoF1.DegreesToSteps(O.J4,N.J4);
-  Steps[4] = DoF1.DegreesToSteps(O.J5,N.J5);
-  Steps[5] = DoF1.DegreesToSteps(O.J6,N.J6);
+  Steps[0] = DoF1.DegreesToSteps(FlagAngles.J1);
+  Steps[1] = DoF2.DegreesToSteps(FlagAngles.J2);
+  Steps[2] = DoF3.DegreesToSteps(FlagAngles.J3);
+  Steps[3] = DoF4.DegreesToSteps(FlagAngles.J4);
+  Steps[4] = DoF5.DegreesToSteps(FlagAngles.J5);
+  Steps[5] = DoF6.DegreesToSteps(FlagAngles.J6);
 
   //Cálculo del máximo número de pasos.
   int Pmax = r6g.MaxDegrees(Steps);
@@ -118,19 +131,27 @@ void MoveJ(float Jn1, float Jn2, float Jn3, float Jn4, float Jn5, float Jn6)
   //Envío de pulsos a cada Driver.
   for(int i = 0; i <= Pmax; i++)
   {
-    DoF1.AngularMove(O.J1,N.J1,Steps[0],i);
-    DoF2.AngularMove(O.J2,N.J2,Steps[1],i);
-    DoF3.AngularMove(O.J3,N.J3,Steps[2],i);
-    DoF4.AngularMove(O.J4,N.J4,Steps[3],i);
-    DoF5.AngularMove(O.J5,N.J5,Steps[4],i);
-    DoF6.AngularMove(O.J6,N.J6,Steps[5],i);
+    DoF1.AngularMove(FlagAngles.J1,Steps[0],i);
+    DoF2.AngularMove(FlagAngles.J2,Steps[1],i);
+    DoF3.AngularMove(FlagAngles.J3,Steps[2],i);
+    DoF4.AngularMove(FlagAngles.J4,Steps[3],i);
+    DoF5.AngularMove(FlagAngles.J5,Steps[4],i);
+    DoF6.AngularMove(FlagAngles.J6,Steps[5],i);
   }
 
   ResetMotors();
 
-  O = N;
+  DoF1.Synchronize(FlagAngles.J1);
+  DoF2.Synchronize(FlagAngles.J2);
+  DoF3.Synchronize(FlagAngles.J3);
+  DoF4.Synchronize(FlagAngles.J4);
+  DoF5.Synchronize(FlagAngles.J5);
+  DoF6.Synchronize(FlagAngles.J6);
 
-  Serial.println("( "+String(N.J1)+", "+String(N.J2)+", "+String(N.J3)+", "+String(N.J4)+", "+String(N.J5)+", "+String(N.J6)+" )");
+  //for(int a = 0; a < 6; a++) Serial.print(String(FlagAngles[a]) + " ");
+
+  //Serial.println("");
+  
 }
 
 void ResetMotors()
