@@ -18,16 +18,6 @@ Joint DoF4;
 Joint DoF5;
 Joint DoF6;
 
-//Almacenamiento de valores de cada articulación.
-
-struct Joints 
-{
-  float J1, J2, J3, J4, J5, J6;
-};
-
-struct Joints FlagAngles = {0,0,0,0,0,0};
-
-
 void setup()
 {
   //Inicialización de monitor serial.
@@ -52,7 +42,7 @@ void setup()
   //Configuración de Velocidad Angular Relativa (Método: Delay entre Pasos). 
   DoF1.SetSpeedRotation(4);
   DoF2.SetSpeedRotation(4);
-  DoF3.SetSpeedRotation(4);
+  DoF3.SetSpeedRotation(5);
   DoF4.SetSpeedRotation(2);
   DoF5.SetSpeedRotation(1);
   DoF6.SetSpeedRotation(2);
@@ -73,84 +63,63 @@ void setup()
   DoF5.SetSoftwareLimits(-70,70);
   DoF6.SetSoftwareLimits(-200,200);
 
-  //Inicialización de ángulos.
+  //Configuración de posiciones de inicio. 
   DoF1.SetInitialAngle(0);
   DoF2.SetInitialAngle(-71);
-  DoF3.SetInitialAngle(0);
+  DoF3.SetInitialAngle(75);
   DoF4.SetInitialAngle(0);
   DoF5.SetInitialAngle(0);
   DoF6.SetInitialAngle(0);
 
+  //Reinicio de motores: Apagados. 
   ResetMotors();
 
-  //Valores iniciales de cada grado de libertad.
-  //O = {0,-54,80,0,0,0};
-  //N = {0,0,0,0,0,0};
 
   //Posición Home.
-  //float homePosition[6] = {0};
-  MoveJ(FlagAngles);
+  float homepos[6] = {0};
+  MoveJ(homepos,6);
 }
 
 void loop()
 {
-  FlagAngles.J3 = -90; 
-  MoveJ(FlagAngles);
-  delay(1000);
-  FlagAngles.J3 = 0;
-  MoveJ(FlagAngles);
-  delay(1000);
-  /*
-  MoveJ(0,mov,0,0,0,0);  
-  delay(1000);
-  MoveJ(0,0,0,0,0,0);
-  delay(1000);
-  MoveJ(0,-1*mov,0,0,0,0);  
-  delay(1000);
-  MoveJ(0,0,0,0,0,0);
-  delay(1000);
-  */
+  float movit[] = {90,0,0,0,0,0};
+  MoveJ(movit,6);
+  delay(2000);
+  movit[0]= 0;
+  MoveJ(movit,6);
+  delay(2000);
 }
 
-void MoveJ(struct Joints FlagAngles)
+void MoveJ(float *FlagAngles, int len)
 {
-  //N = {Jn1, Jn2, Jn3, Jn4, Jn5, Jn6};
-
   //Calculo de pasos para cada articulación. 
-  int Steps[6] = {0,0,0,0,0,0};
-  Steps[0] = DoF1.DegreesToSteps(FlagAngles.J1);
-  Steps[1] = DoF2.DegreesToSteps(FlagAngles.J2);
-  Steps[2] = DoF3.DegreesToSteps(FlagAngles.J3);
-  Steps[3] = DoF4.DegreesToSteps(FlagAngles.J4);
-  Steps[4] = DoF5.DegreesToSteps(FlagAngles.J5);
-  Steps[5] = DoF6.DegreesToSteps(FlagAngles.J6);
+  int Steps[] = {0,0,0,0,0,0};
+  Steps[0] = DoF1.DegreesToSteps(FlagAngles[0]);
+  Steps[1] = DoF2.DegreesToSteps(FlagAngles[1]);
+  Steps[2] = DoF3.DegreesToSteps(FlagAngles[2]);
+  Steps[3] = DoF4.DegreesToSteps(FlagAngles[3]);
+  Steps[4] = DoF5.DegreesToSteps(FlagAngles[4]);
+  Steps[5] = DoF6.DegreesToSteps(FlagAngles[5]);
 
   //Cálculo del máximo número de pasos.
   int Pmax = r6g.MaxDegrees(Steps);
 
   //Envío de pulsos a cada Driver.
-  for(int i = 0; i <= Pmax; i++)
+  for(int i = 0; i <= Pmax+2; i++)
   {
-    DoF1.AngularMove(FlagAngles.J1,Steps[0],i);
-    DoF2.AngularMove(FlagAngles.J2,Steps[1],i);
-    DoF3.AngularMove(FlagAngles.J3,Steps[2],i);
-    DoF4.AngularMove(FlagAngles.J4,Steps[3],i);
-    DoF5.AngularMove(FlagAngles.J5,Steps[4],i);
-    DoF6.AngularMove(FlagAngles.J6,Steps[5],i);
+    DoF1.AngularMove(FlagAngles[0], Steps[0],i);
+    DoF2.AngularMove(FlagAngles[1], Steps[1],i);
+    DoF3.AngularMove(FlagAngles[2], Steps[2],i);
+    DoF4.AngularMove(FlagAngles[3], Steps[3],i);
+    DoF5.AngularMove(FlagAngles[4], Steps[4],i);
+    DoF6.AngularMove(FlagAngles[5], Steps[5],i);
   }
 
   ResetMotors();
 
-  DoF1.Synchronize(FlagAngles.J1);
-  DoF2.Synchronize(FlagAngles.J2);
-  DoF3.Synchronize(FlagAngles.J3);
-  DoF4.Synchronize(FlagAngles.J4);
-  DoF5.Synchronize(FlagAngles.J5);
-  DoF6.Synchronize(FlagAngles.J6);
-
-  //for(int a = 0; a < 6; a++) Serial.print(String(FlagAngles[a]) + " ");
-
-  //Serial.println("");
+  //Informe de movimiento.
+  for(int x = 0; x<6; x++) Serial.print(String(FlagAngles[x]) + ", ");
+  Serial.println("");
   
 }
 
