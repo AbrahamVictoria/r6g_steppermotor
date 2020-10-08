@@ -8,6 +8,10 @@
 #include<r6gController.h>
 #include <ArduinoJson.h>
 
+#include<BluetoothSerial.h>
+
+BluetoothSerial SerialBT;
+
 //Declaración de clase Robot.
 Robot r6g;
 
@@ -28,7 +32,7 @@ void setup()
 {
   //Inicialización de monitor serial.
   Serial.begin(115200);
-
+  SerialBT.begin("R6G");
   //Configuración de pines: Dir, Step.
   DoF1.SetPines(23,22);
   DoF2.SetPines(21,19);
@@ -103,7 +107,7 @@ void loop()
     digitalWrite(2,LOW);
     deserializeJson(doc, ROSmessage);
     JsonObject Angles = doc.as<JsonObject>();
-    
+    SerialBT.println(ROSmessage);
     float FlagAngles[6] = {0};
     for(int i = 0; i < 6; i++)
     {
