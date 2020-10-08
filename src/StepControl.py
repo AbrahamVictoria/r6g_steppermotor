@@ -1,19 +1,19 @@
 #! /usr/bin/env python3
 
 import rospy
-from std_msgs.msg import Int64MultiArray
+from std_msgs.msg import Float64MultiArray
 
 def StepControl():
 	rospy.init_node('StepControl',anonymous = True)
-	pub = rospy.Publisher('Channel',Int64MultiArray,queue_size=100)
+	pub = rospy.Publisher('Targets',Float64MultiArray,queue_size=100)
 	print('Nodo creado con Éxito')
 	rate = rospy.Rate(10) #Frecuencia de publicaciÃ³n -> 10Hz
-	grados = Int64MultiArray()
+	grados = Float64MultiArray()
 	grados.data = [0]*7
 	while not rospy.is_shutdown():
-		grados.data[0] = int(input("Número de pulsaciones: "))
+		for i in range(0,6):
+			grados.data[i] = int(input("J{}: ".format(i+1)))
 		pub.publish(grados)
-		print(grados.data[0], grados)
 		rate.sleep()
 
 if __name__ == '__main__':

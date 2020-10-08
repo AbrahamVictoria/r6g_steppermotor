@@ -6,6 +6,7 @@
 */
 
 #include<r6gController.h>
+#include <ArduinoJson.h>
 
 //Declaración de clase Robot.
 Robot r6g;
@@ -18,10 +19,15 @@ Joint DoF4;
 Joint DoF5;
 Joint DoF6;
 
+//Variable temporal para almacenamiento del mensaje serial.
+String ROSmessage = "";
+
+DynamicJsonDocument doc(1024);
+
 void setup()
 {
   //Inicialización de monitor serial.
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   //Configuración de pines: Dir, Step.
   DoF1.SetPines(23,22);
@@ -76,18 +82,39 @@ void setup()
 
 
   //Posición Home.
+  /*
   float homepos[6] = {0};
   MoveJ(homepos,6);
+  */
+  pinMode(2,OUTPUT);
 }
 
 void loop()
 {
-  float movit[] = {90,0,0,0,0,0};
-  MoveJ(movit,6);
-  delay(2000);
-  movit[0]= 0;
-  MoveJ(movit,6);
-  delay(2000);
+  while(Serial.available())
+  {
+    String input = "";
+    char var = Serial.read();
+    input = String(var);
+    ROSmessage += input;
+  }
+  if(ROSmessage != "")
+  {
+    digitalWrite(2,LOW);
+    deserializeJson(doc, ROSmessage);
+    JsonObject Angles = doc.as<JsonObject>();
+    
+    float FlagAngles[6] = {0};
+    for(int i = 0; i < 6; i++)
+    {
+      String index = "J" + String(i+1);
+      FlagAngles[i] = Angles[index].as<float>();
+    }
+    MoveJ(FlagAngles,6);
+    ROSmessage = "";
+  }
+  digitalWrite(2,HIGH);
+  Serial.println("OK");
 }
 
 void MoveJ(float *FlagAngles, int len)
@@ -116,10 +143,6 @@ void MoveJ(float *FlagAngles, int len)
   }
 
   ResetMotors();
-
-  //Informe de movimiento.
-  for(int x = 0; x<6; x++) Serial.print(String(FlagAngles[x]) + ", ");
-  Serial.println("");
   
 }
 
