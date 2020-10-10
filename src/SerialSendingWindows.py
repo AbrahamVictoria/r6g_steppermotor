@@ -1,18 +1,14 @@
-#!/usr/bin/env python3
-
-import rospy
-from std_msgs.msg import Float64MultiArray
-
 import serial, time
 
 def SendData(name, target):
 	"""Envío de datos por el puerto serial con estructura JSON"""
-	port = '/dev/ttyUSB1'
-	#port = 'COM4'
+	#port = '/dev/ttyUSB1'
+	port = 'COM4'
 	arduino = serial.Serial(port, 115200)
 	print('Puerto serial iniciado en {}'.format(port))
 	arduino.write(target.encode())
 	print("{}: {}".format(name, target))
+	
 	while True:
 		confirm = str(arduino.readline())
 		print(confirm)
@@ -33,13 +29,10 @@ def callback(data):
 	print(target)
 	SendData(PosName,target)
 	 
-def SerialSending():
-	"""Inicialización del nodo suscriptor"""
-	rospy.init_node('SerialSending', anonymous=True)
-	rospy.Subscriber("Targets", Float64MultiArray, callback)
-	print('Nodo creado con Éxito')
-	rospy.spin()
 
-if __name__ == '__main__':
-	SerialSending()
-
+grados = [0]*7
+while True:
+	"""Toma de datos del usuario para generar array de ángulos"""
+	for i in range(0,6):
+		grados[i] = int(input("J{}: ".format(i+1)))
+	callback(grados)

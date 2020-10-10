@@ -8,10 +8,6 @@
 #include<r6gController.h>
 #include <ArduinoJson.h>
 
-#include<BluetoothSerial.h>
-
-BluetoothSerial SerialBT;
-
 //Declaración de clase Robot.
 Robot r6g;
 
@@ -32,7 +28,7 @@ void setup()
 {
   //Inicialización de monitor serial.
   Serial.begin(115200);
-  SerialBT.begin("R6G");
+
   //Configuración de pines: Dir, Step.
   DoF1.SetPines(23,22);
   DoF2.SetPines(21,19);
@@ -84,46 +80,46 @@ void setup()
   //Reinicio de motores: Apagados. 
   ResetMotors();
 
-
-  //Posición Home.
-  /*
-  float homepos[6] = {0};
-  MoveJ(homepos,6);
-  */
   pinMode(2,OUTPUT);
 }
 
 void loop()
 {
+  String input = "";
+  //Lectura de mensaje en ROS.
   while(Serial.available())
   {
-    String input = "";
     char var = Serial.read();
     input = String(var);
     ROSmessage += input;
   }
-  if(ROSmessage != "")
+  if(input == "}") //Verifica estructura JSON con el último caracter.
   {
     digitalWrite(2,LOW);
+    //Obtención de valores del mesaje tipo JSON.
     deserializeJson(doc, ROSmessage);
     JsonObject Angles = doc.as<JsonObject>();
-    SerialBT.println(ROSmessage);
-    float FlagAngles[6] = {0};
+    //Inicializa y asigna los valores al array de envío para movimiento. 
+    float FlagAngles[6] = {};
     for(int i = 0; i < 6; i++)
     {
       String index = "J" + String(i+1);
       FlagAngles[i] = Angles[index].as<float>();
     }
+    //Movimiento del robot.
     MoveJ(FlagAngles,6);
-    ROSmessage = "";
+    //Limpia variable del mesaje. 
+    ROSmessage = ""; 
   }
+  
   digitalWrite(2,HIGH);
-  Serial.println("OK");
+  
+  Serial.println("OK"); //Confirmación de disponibilidad. 
 }
 
 void MoveJ(float *FlagAngles, int len)
 {
-  //Calculo de pasos para cada articulación. 
+  //Cálculo de pasos para cada articulación. 
   int Steps[] = {0,0,0,0,0,0};
   Steps[0] = DoF1.DegreesToSteps(FlagAngles[0]);
   Steps[1] = DoF2.DegreesToSteps(FlagAngles[1]);
