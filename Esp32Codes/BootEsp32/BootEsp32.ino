@@ -21,6 +21,8 @@ Joint DoF6;
 
 //Variable temporal para almacenamiento del mensaje serial.
 String ROSmessage = "";
+char Check;
+int ind = 0;
 
 DynamicJsonDocument doc(1024);
 
@@ -91,9 +93,11 @@ void loop()
   {
     char var = Serial.read();
     input = String(var);
+    Check = var;
+    //if(ind < 4) Check[ind] = var;
     ROSmessage += input;
   }
-  if(input == "}") //Verifica estructura JSON con el último caracter.
+  if(Check == '}') //Verifica estructura JSON con el último caracter.
   {
     digitalWrite(2,LOW);
     //Obtención de valores del mesaje tipo JSON.
@@ -106,8 +110,17 @@ void loop()
       String index = "J" + String(i+1);
       FlagAngles[i] = Angles[index].as<float>();
     }
+    /*
     //Movimiento del robot.
     MoveJ(FlagAngles,6);
+    */
+    for(int x = 0; x < FlagAngles[0]; x++)
+    {
+      digitalWrite(2,HIGH);
+      delay(500);
+      digitalWrite(2,LOW);
+      delay(500);
+    }
     //Limpia variable del mesaje. 
     ROSmessage = ""; 
   }
