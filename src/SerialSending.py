@@ -1,4 +1,4 @@
-
+#! /usr/bin/env python3
 import rospy
 from std_msgs.msg import Float64MultiArray
 
@@ -20,8 +20,8 @@ def callback(data):
 	"""Construcción del mensaje en formato JSON"""
 	target = "{"
 	for i in range(0,5):
-		target += "\"J{}\": {},".format(i+1,data[i])
-	target += "\"J{}\": {}".format(6,data[5])
+		target += "\"J{}\": {},".format(i+1,data.data[i])
+	target += "\"J{}\": {}".format(6,data.data[5])
 	target += "}"
 	PosName = "Position"
 	print(target)
@@ -35,7 +35,7 @@ def SerialSending():
 	rospy.spin()
 
 #Inicialización del puerto serie
-port = '/dev/ttyUSB1'
+port = '/dev/ttyUSB0'
 #port = 'COM4'
 arduino = serial.Serial(port, 115200)
 arduino.setDTR = False
@@ -43,7 +43,7 @@ print('Puerto serial iniciado en {}'.format(port))
 
 if __name__ == '__main__':
 	try:
-	SerialSending()
+		SerialSending()
 	except rospy.ROSInterruptException:
 		arduino.close()
 
