@@ -21,8 +21,6 @@ Joint DoF6;
 
 //Variable temporal para almacenamiento del mensaje serial.
 String ROSmessage = "";
-char Check;
-int ind = 0;
 
 DynamicJsonDocument doc(1024);
 
@@ -88,16 +86,15 @@ void setup()
 void loop()
 {
   String input = "";
+  char var;
   //Lectura de mensaje en ROS.
   while(Serial.available())
   {
-    char var = Serial.read();
+    var = Serial.read();
     input = String(var);
-    Check = var;
-    //if(ind < 4) Check[ind] = var;
     ROSmessage += input;
   }
-  if(Check == '}') //Verifica estructura JSON con el último caracter.
+  if(var == '}') //Verifica estructura JSON con el último caracter.
   {
     digitalWrite(2,LOW);
     //Obtención de valores del mesaje tipo JSON.
