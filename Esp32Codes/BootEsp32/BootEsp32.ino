@@ -46,12 +46,12 @@ void setup()
   DoF6.SetRelation(1);
 
   //Configuración de Velocidad Angular Relativa (Método: Delay entre Pasos). 
-  DoF1.SetSpeedRotation(4);
-  DoF2.SetSpeedRotation(4);
-  DoF3.SetSpeedRotation(5);
-  DoF4.SetSpeedRotation(2);
-  DoF5.SetSpeedRotation(1);
-  DoF6.SetSpeedRotation(2);
+  DoF1.SetSpeedRotation(10);
+  DoF2.SetSpeedRotation(10);
+  DoF3.SetSpeedRotation(20);
+  DoF4.SetSpeedRotation(10);
+  DoF5.SetSpeedRotation(10);
+  DoF6.SetSpeedRotation(10);
 
   //Configuración de Z+ para Modelo DH.
   DoF1.SetPositiveTurn(LOW);

@@ -7,10 +7,8 @@ def SendData(name, target):
 	print('Puerto serial iniciado en {}'.format(port))
 	arduino.write(target.encode())
 	print("{}: {}".format(name, target))
-
 	while True:
 		confirm = str(arduino.readline())
-		print(confirm)
 		if 'OK' in confirm: 
 			break
 		time.sleep(1)
@@ -24,9 +22,9 @@ def callback(data):
 	target += "\"J{}\": {}".format(6,data[5])
 	target += "}"
 	PosName = "Position"
-	print(target)
 	SendData(PosName,target)
 	 
+
 
 grados = [0]*7
 while True:
