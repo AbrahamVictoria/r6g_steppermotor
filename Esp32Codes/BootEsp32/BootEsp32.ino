@@ -48,7 +48,7 @@ void setup()
   //Configuración de Velocidad Angular Relativa (Método: Delay entre Pasos). 
   DoF1.SetSpeedRotation(10);
   DoF2.SetSpeedRotation(10);
-  DoF3.SetSpeedRotation(20);
+  DoF3.SetSpeedRotation(25);
   DoF4.SetSpeedRotation(10);
   DoF5.SetSpeedRotation(10);
   DoF6.SetSpeedRotation(10);
