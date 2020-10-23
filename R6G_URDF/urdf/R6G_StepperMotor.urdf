@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="R6G_StepperMotor">
+  <link
+    name="Base">
+    <inertial>
+      <origin
+        xyz="-0.0600506591330588 0.00463748446225203 0.0360525644504499"
+        rpy="0 0 0" />
+      <mass
+        value="0.709351460903429" />
+      <inertia
+        ixx="0.000573861632797521"
+        ixy="-2.68012488767296E-07"
+        ixz="3.05395942409337E-06"
+        iyy="0.00121003362652614"
+        iyz="-9.3152663493769E-08"
+        izz="0.00166587876176935" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/Base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/Base.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="E1">
+    <inertial>
+      <origin
+        xyz="-0.00537860119006496 0.00097892634146373 0.0417365414974323"
+        rpy="0 0 0" />
+      <mass
+        value="0.903539335321074" />
+      <inertia
+        ixx="0.000929296051875784"
+        ixy="-0.000175543672297953"
+        ixz="1.57402788012078E-05"
+        iyy="0.00104907872767681"
+        iyz="-1.22521484394195E-05"
+        izz="0.00143443566535077" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/E1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/E1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J1"
+    type="revolute">
+    <origin
+      xyz="0.0038581 0.0046602 0.04"
+      rpy="0 0 0" />
+    <parent
+      link="Base" />
+    <child
+      link="E1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="E2">
+    <inertial>
+      <origin
+        xyz="0.0332590216108241 0.00373977113918486 -0.00144308580344062"
+        rpy="0 0 0" />
+      <mass
+        value="0.354767576761165" />
+      <inertia
+        ixx="0.000150860807806332"
+        ixy="-1.81179706363237E-05"
+        ixz="1.01475500204715E-05"
+        iyy="0.000282170369019695"
+        iyz="2.55891664091645E-07"
+        izz="0.000279580581828938" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/E2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/E2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J2"
+    type="revolute">
+    <origin
+      xyz="0.046983 -0.0012686 0.0945"
+      rpy="1.5438 -1.5708 0" />
+    <parent
+      link="E1" />
+    <child
+      link="E2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="E3">
+    <inertial>
+      <origin
+        xyz="0.000220041332072429 -0.00519450084723048 0.00800441841593895"
+        rpy="0 0 0" />
+      <mass
+        value="0.127349205746004" />
+      <inertia
+        ixx="3.64889309131735E-05"
+        ixy="9.64589727672928E-07"
+        ixz="1.67830202946125E-06"
+        iyy="6.67610289544E-05"
+        iyz="-5.2389435610324E-07"
+        izz="6.00623058722533E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/E3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/E3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J3"
+    type="revolute">
+    <origin
+      xyz="0.10903 0.014603 0"
+      rpy="0 0 0.16571" />
+    <parent
+      link="E2" />
+    <child
+      link="E3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="E4">
+    <inertial>
+      <origin
+        xyz="0.00337123810548712 -0.00124163397916271 0.0629415090650601"
+        rpy="0 0 0" />
+      <mass
+        value="0.105427728955872" />
+      <inertia
+        ixx="8.02598041430305E-05"
+        ixy="6.26773152063218E-08"
+        ixz="-2.19186077749248E-07"
+        iyy="7.73019304773501E-05"
+        iyz="7.65513610223618E-06"
+        izz="2.20977404774244E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/E4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/E4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J4"
+    type="revolute">
+    <origin
+      xyz="0.022629 -0.006 -0.00099068"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="E3" />
+    <child
+      link="E4" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="E5">
+    <inertial>
+      <origin
+        xyz="0.00832003102765816 0.00428629852836154 -0.00250287831543677"
+        rpy="0 0 0" />
+      <mass
+        value="0.0379001132520512" />
+      <inertia
+        ixx="6.5753352703426E-06"
+        ixy="3.56929406070445E-08"
+        ixz="2.17779017535988E-08"
+        iyy="6.89129324032002E-06"
+        iyz="-1.16628174620041E-07"
+        izz="5.24238789497236E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/E5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/E5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J5"
+    type="revolute">
+    <origin
+      xyz="0.0037521 -0.00099068 0.1225"
+      rpy="1.5708 -0.76145 0.021765" />
+    <parent
+      link="E4" />
+    <child
+      link="E5" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="E6">
+    <inertial>
+      <origin
+        xyz="-0.000253152238972487 -0.000352027477121847 -0.0249179980888878"
+        rpy="0 0 0" />
+      <mass
+        value="0.00676940484372591" />
+      <inertia
+        ixx="3.10149980416948E-07"
+        ixy="-1.14839573440094E-08"
+        ixz="3.18297676132834E-09"
+        iyy="3.03379110315257E-07"
+        iyz="5.39630125071828E-09"
+        izz="2.93516892491846E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/E6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://R6G_StepperMotor/meshes/E6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J6"
+    type="continuous">
+    <origin
+      xyz="-0.000710455728336334 0.0642619684991851 0.000226586058946966"
+      rpy="1.57079632679488 0.0373469687157337 3.14159265358979" />
+    <parent
+      link="E5" />
+    <child
+      link="E6" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+</robot>
