@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: r6g_steppermotor
+    relative_path: urdf/r6g_steppermotor.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/r6g_steppermotor.srdf
+  CONFIG:
+    author_name: Alejandro Tevera Ruiz
+    author_email: atevera.rz@gmail.com
+    generated_timestamp: 1603740953
