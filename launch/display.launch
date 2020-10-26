@@ -16,5 +16,5 @@
     name="rviz"
     pkg="rviz"
     type="rviz"
-    args="-d $(find r6g_steppermotor)/urdf.rviz" />
+    args="-d $(find r6g_steppermotor)/rviz/r6g_model.rviz" />
 </launch>
