@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="r6g_steppermotor">
+  <link
+    name="Base">
+    <inertial>
+      <origin
+        xyz="-0.0639088002397266 -2.2692272705703E-05 0.0340525644504499"
+        rpy="0 0 0" />
+      <mass
+        value="0.709351460903428" />
+      <inertia
+        ixx="0.000573861632797521"
+        ixy="-2.6801248876735E-07"
+        ixz="3.05395942409336E-06"
+        iyy="0.00121003362652614"
+        iyz="-9.31526634937716E-08"
+        izz="0.00166587876176935" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Base.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Eslabon1">
+    <inertial>
+      <origin
+        xyz="-0.00540306502255795 0.000833388687623213 -0.0527634582724991"
+        rpy="0 0 0" />
+      <mass
+        value="0.903539346376096" />
+      <inertia
+        ixx="0.00093885655579188"
+        ixy="-0.000178519910455735"
+        ixz="1.60652619848817E-05"
+        iyy="0.00103951823836823"
+        iyz="-1.1822820288052E-05"
+        izz="0.00143443567145998" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Eslabon1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Eslabon1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint1"
+    type="revolute">
+    <origin
+      xyz="0 0 0.1325"
+      rpy="0 0 0" />
+    <parent
+      link="Base" />
+    <child
+      link="Eslabon1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.5708"
+      upper="1.5708"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Eslabon2">
+    <inertial>
+      <origin
+        xyz="0.0334611118738601 -0.000708602789206227 -0.00144308379319205"
+        rpy="0 0 0" />
+      <mass
+        value="0.354767501583128" />
+      <inertia
+        ixx="0.000148407066546261"
+        ixy="-2.01715820849236E-07"
+        ixz="1.00917076073645E-05"
+        iyy="0.000284624073522746"
+        iyz="-1.09349087975605E-06"
+        izz="0.000279580543649812" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Eslabon2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Eslabon2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint2"
+    type="revolute">
+    <origin
+      xyz="0.047 0 0"
+      rpy="-1.5708 -1.5708 0" />
+    <parent
+      link="Eslabon1" />
+    <child
+      link="Eslabon2" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1.04719755"
+      upper="1.74532925"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Eslabon3">
+    <inertial>
+      <origin
+        xyz="0.000220041469300214 -0.00519449814249906 0.0080044229227097"
+        rpy="0 0 0" />
+      <mass
+        value="0.127349139724555" />
+      <inertia
+        ixx="3.64889212812768E-05"
+        ixy="9.64569415331806E-07"
+        ixz="1.67830136898544E-06"
+        iyy="6.67610066218378E-05"
+        iyz="-5.23892931237426E-07"
+        izz="6.00622889155128E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Eslabon3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Eslabon3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint3"
+    type="revolute">
+    <origin
+      xyz="0.11 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="Eslabon2" />
+    <child
+      link="Eslabon3" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1.22173048"
+      upper="1.04719755"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Eslabon4">
+    <inertial>
+      <origin
+        xyz="-5.45364462963827E-05 -0.000300913150659561 0.0569415515809231"
+        rpy="0 0 0" />
+      <mass
+        value="0.105427595309454" />
+      <inertia
+        ixx="8.02608855278048E-05"
+        ixy="-1.76928900289979E-09"
+        ixz="-5.24357128303017E-08"
+        iyy="7.73004016398822E-05"
+        iyz="7.65808682113006E-06"
+        izz="2.20976734952738E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Eslabon4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Eslabon4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint4"
+    type="revolute">
+    <origin
+      xyz="0.026048 0 -5E-05"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="Eslabon3" />
+    <child
+      link="Eslabon4" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1.22173048"
+      upper="1.22173048"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Eslabon5">
+    <inertial>
+      <origin
+        xyz="0.00859485928851123 0.0040243306553672 -0.00249460060451457"
+        rpy="0 0 0" />
+      <mass
+        value="0.0379001161241005" />
+      <inertia
+        ixx="6.57533516443806E-06"
+        ixy="3.56937863268998E-08"
+        ixz="2.17780808246715E-08"
+        iyy="6.89129399718228E-06"
+        iyz="-1.16628285361323E-07"
+        izz="5.24238854439529E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Eslabon5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Eslabon5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint5"
+    type="revolute">
+    <origin
+      xyz="-4.7986E-05 -5E-05 0.1165"
+      rpy="1.5708 0 0" />
+    <parent
+      link="Eslabon4" />
+    <child
+      link="Eslabon5" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.34906585"
+      upper="1.74532925"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Eslabon6">
+    <inertial>
+      <origin
+        xyz="0.000432117368158402 -3.58325823099914E-05 -0.0249179979608894"
+        rpy="0 0 0" />
+      <mass
+        value="0.00676940477338509" />
+      <inertia
+        ixx="2.95037075929751E-07"
+        ixy="2.41017072110121E-09"
+        ixz="-6.26490425350559E-09"
+        iyy="3.18492013544316E-07"
+        iyz="-4.88370120749193E-11"
+        izz="2.93516892422138E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Eslabon6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://r6g_steppermotor/meshes/Eslabon6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint6"
+    type="revolute">
+    <origin
+      xyz="0.00055081 0.064 0.00019939"
+      rpy="1.5708 0 -3.1416" />
+    <parent
+      link="Eslabon5" />
+    <child
+      link="Eslabon6" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-3.14159265"
+      upper="3.14159265"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>

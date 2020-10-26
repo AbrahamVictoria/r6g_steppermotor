@@ -66,8 +66,8 @@ void setup()
   DoF2.SetSoftwareLimits(-60,100);
   DoF3.SetSoftwareLimits(-70,60);
   DoF4.SetSoftwareLimits(-70,70);
-  DoF5.SetSoftwareLimits(-70,70);
-  DoF6.SetSoftwareLimits(-200,200);
+  DoF5.SetSoftwareLimits(-20,110); 
+  DoF6.SetSoftwareLimits(-180,180);
 
   //Configuración de posiciones de inicio. 
   DoF1.SetInitialAngle(0);
