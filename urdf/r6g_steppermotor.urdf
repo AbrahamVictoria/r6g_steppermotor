@@ -211,7 +211,7 @@
     <child
       link="Eslabon3" />
     <axis
-      xyz="0 0 -1" />
+      xyz="0 0 1" />
     <limit
       lower="-1.22173048"
       upper="1.04719755"
