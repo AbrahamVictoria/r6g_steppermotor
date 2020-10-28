@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 import rospy
-from std_msgs.msg import Float64MultiArray
+from sensor_msgs.msg import JointState
 
 import serial, time
 
@@ -19,9 +19,12 @@ def SendData(name, target):
 def callback(data):
 	"""Construcción del mensaje en formato JSON"""
 	target = "{"
-	for i in range(0,5):
-		target += "\"J{}\": {},".format(i+1,data.data[i])
-	target += "\"J{}\": {}".format(6,data.data[5])
+	for i in range(0,len(data.position)):
+		dataJoint = data.position[i] 
+		if dataJoint < 0.1:
+			dataJoint = 0
+		target += "\"J{}\": {},".format(i+1,dataJoint)
+	target += "\"J{}\": {}".format(6,0)
 	target += "}"
 	PosName = "Position"
 	print(target)
@@ -30,7 +33,7 @@ def callback(data):
 def SerialSending():
 	"""Inicialización del nodo suscriptor"""
 	rospy.init_node('SerialSending', anonymous=True)
-	rospy.Subscriber("Targets", Float64MultiArray, callback)
+	rospy.Subscriber("/move_group/fake_controller_joint_states", JointState, callback)
 	print('Nodo creado con Éxito')
 	rospy.spin()
 
