@@ -6,7 +6,7 @@
 */
 
 #include<r6gController.h>
-#include <ArduinoJson.h>
+#include<ArduinoJson.h>
 
 //Declaración de clase Robot.
 Robot r6g;
@@ -30,7 +30,7 @@ void setup()
   Serial.begin(115200);
 
   //Configuración de pines: Dir, Step.
-  DoF1.SetPines(23,22);
+  DoF1.SetPines(23,22); //23,22
   DoF2.SetPines(21,19);
   DoF3.SetPines(18,5);
   DoF4.SetPines(17,16);
@@ -109,7 +109,8 @@ void loop()
     }
     //Movimiento del robot.
     MoveJ(FlagAngles,6);
-
+    
+    Serial.println(ROSmessage);
     //Limpia variable del mesaje. 
     ROSmessage = ""; 
   }
@@ -121,6 +122,7 @@ void loop()
 
 void MoveJ(float *FlagAngles, int len)
 {
+  ResetMotors();
   //Cálculo de pasos para cada articulación. 
   int Steps[] = {0,0,0,0,0,0};
   Steps[0] = DoF1.DegreesToSteps(FlagAngles[0]);
