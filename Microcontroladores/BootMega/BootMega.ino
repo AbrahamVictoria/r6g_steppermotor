@@ -28,8 +28,10 @@ int RobotStatus = 0;
 
 void JointMove(const sensor_msgs::JointState& joints)
 {
-  for(int i = 0; i < 5; i++) GoalAngles[i] = joints.position[i];
+  
+  for(int i = 0; i < 5; i++) GoalAngles[i] = joints.position[i]*180/3.1415927;
 
+  
   GoalAngles[5] = 0.0;
 
   RobotStatus = 1;
@@ -37,7 +39,7 @@ void JointMove(const sensor_msgs::JointState& joints)
 
 std_msgs::Float64MultiArray JointFeedback;
 
-ros::Subscriber<sensor_msgs::JointState> r6g_robot("Targets", &JointMove);
+ros::Subscriber<sensor_msgs::JointState> r6g_robot("joint_states", &JointMove);
 
 ros::Publisher r6g_robot_feedback("joint_states_feedback", &JointFeedback);
 
@@ -106,18 +108,19 @@ void setup()
 void loop()
 {
   digitalWrite(13,HIGH);
-  nh.spinOnce();
-  delay(1);
-
   if(RobotStatus == 1)
   {
     digitalWrite(13,LOW);
     MoveJ(GoalAngles,6);
     RobotStatus = 0;
-
-    for(int x = 0; x < 5; x++) JointFeedback.data[x] = GoalAngles[x];
-    r6g_robot_feedback.publish(&JointFeedback);
   }
+
+  for(int x = 0; x < 5; x++) JointFeedback.data[x] = GoalAngles[x];
+  r6g_robot_feedback.publish(&JointFeedback);
+
+  
+  nh.spinOnce();
+  delay(1);
 
 }
 
