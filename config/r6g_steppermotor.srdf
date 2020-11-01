@@ -16,15 +16,13 @@
         <link name="Eslabon3"/>
         <link name="Eslabon4"/>
         <link name="Eslabon5"/>
+        <link name="Eslabon6"/>
         <joint name="vFixed"/>
         <joint name="Joint1"/>
         <joint name="Joint2"/>
         <joint name="Joint3"/>
         <joint name="Joint4"/>
         <joint name="Joint5"/>
-    </group>
-    <group name="r6g_endEffector">
-        <link name="Eslabon6"/>
         <joint name="Joint6"/>
     </group>
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
@@ -34,6 +32,7 @@
         <joint name="Joint3" value="1.0471"/>
         <joint name="Joint4" value="0"/>
         <joint name="Joint5" value="0"/>
+        <joint name="Joint6" value="0"/>
     </group_state>
     <group_state name="home_um" group="r6g_um">
         <joint name="Joint1" value="0"/>
@@ -41,12 +40,8 @@
         <joint name="Joint3" value="0"/>
         <joint name="Joint4" value="0"/>
         <joint name="Joint5" value="0"/>
-    </group_state>
-    <group_state name="home_endEffector" group="r6g_endEffector">
         <joint name="Joint6" value="0"/>
     </group_state>
-    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector name="Electroiman" parent_link="Eslabon5" group="r6g_endEffector" parent_group="r6g_um"/>
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="vFixed" type="fixed" parent_frame="world" child_link="Base"/>
     <virtual_joint name="vJoint1" type="planar" parent_frame="Base" child_link="Eslabon1"/>

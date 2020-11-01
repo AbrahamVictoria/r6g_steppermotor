@@ -6,11 +6,7 @@ controller_list:
       - Joint3
       - Joint4
       - Joint5
-  - name: fake_r6g_endEffector_controller
-    joints:
       - Joint6
 initial:  # Define initial robot poses.
   - group: r6g_um
     pose: inicial_um
-  - group: r6g_endEffector
-    pose: home_endEffector

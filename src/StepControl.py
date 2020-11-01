@@ -12,12 +12,12 @@ def StepControl():
 	rate = rospy.Rate(10) #Frecuencia de publicaciÃ³n -> 10Hz
 	grados = JointState()
 	grados.position = [0]*6
+	grados.name = ['Joint1', 'Joint2', 'Joint3', 'Joint4', 'Joint5', 'Joint6']
 	i = 1
 	while not rospy.is_shutdown():
-		for grado in grados.position:
-			grado = float(input("J{}: ".format(i)))
-			i += 1
-		pub.publish(grados)
+		for i in range(0,6):
+			grados.position[i] = float(input("J{}: ".format(i+1)))
+		pub.publish(grados)8
 		rate.sleep()
 
 if __name__ == '__main__':
