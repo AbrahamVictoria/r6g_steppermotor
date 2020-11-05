@@ -1,0 +1,23 @@
+digraph G {
+node [shape=box];
+"Base" [label="Base"];
+"Eslabon1" [label="Eslabon1"];
+"Eslabon2" [label="Eslabon2"];
+"Eslabon3" [label="Eslabon3"];
+"Eslabon4" [label="Eslabon4"];
+"Eslabon5" [label="Eslabon5"];
+"Eslabon6" [label="Eslabon6"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"Base" -> "Joint1" [label="xyz: 0 0 0.1325 \nrpy: 0 -0 0"]
+"Joint1" -> "Eslabon1"
+"Eslabon1" -> "Joint2" [label="xyz: 0.047 0 0 \nrpy: 0 -1.5708 -1.5708"]
+"Joint2" -> "Eslabon2"
+"Eslabon2" -> "Joint3" [label="xyz: 0.11 0 0 \nrpy: 0 -0 0"]
+"Joint3" -> "Eslabon3"
+"Eslabon3" -> "Joint4" [label="xyz: 0.026048 0 -5e-05 \nrpy: -1.5708 0 0"]
+"Joint4" -> "Eslabon4"
+"Eslabon4" -> "Joint5" [label="xyz: -4.7986e-05 -5e-05 0.1165 \nrpy: 1.5708 -0 0"]
+"Joint5" -> "Eslabon5"
+"Eslabon5" -> "Joint6" [label="xyz: 0.00055081 0.064 0.00019939 \nrpy: 1.5708 4.85247e-22 3.14159"]
+"Joint6" -> "Eslabon6"
+}
