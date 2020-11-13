@@ -5,14 +5,6 @@ print("Configurando variables...")
 # Configuración de detección de color.
 font = cv2.FONT_ITALIC
 
-"""
-azulBajo = np.array([100,100,20],np.uint8)
-azulAlto = np.array([125,255,255],np.uint8)
-redBajo1 = np.array([0,100,20],np.uint8)
-redAlto1 = np.array([8,255,255],np.uint8)
-redBajo2 = np.array([171,100,20],np.uint8)
-redAlto2 = np.array([179,255,255],np.uint8)
-"""
 def nothing(x):
    pass
 
