@@ -39,6 +39,8 @@ def callback(data):
 		estado += "J{}: {} ".format(i+1,grado_Degrees)
 		i += 1
 	#target += "\"J{}\": {}".format(6,0)
+	EndEffector = int(input("Estado del efector final: "))
+	target += "\"EF\": {}".format(EndEffector)
 	target += "}"
 	PosName = "Position"
 	if not comparative:

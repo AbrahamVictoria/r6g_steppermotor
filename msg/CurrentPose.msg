@@ -1,2 +1,3 @@
+string[] name
 float64[] position
-bool EndEffector_Status
+Uint16 EndEffector

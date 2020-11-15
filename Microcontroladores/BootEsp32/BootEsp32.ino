@@ -22,9 +22,6 @@ Joint DoF6;
 //Variable temporal para almacenamiento del mensaje serial.
 String ROSmessage = "";
 
-//Variable universal de control del efector final.
-int State_EF = 0;
-
 DynamicJsonDocument doc(1024);
 
 void setup()
@@ -113,17 +110,12 @@ void loop()
       String index = "J" + String(i+1);
       FlagAngles[i] = Angles[index].as<float>();
     }
-    //Movimiento del robot.
-    MoveJ(FlagAngles,6);
 
     //Actualiza el estado del efector final.
-    int temp_State = Angles["EF"].as<int>();
+    bool State_EF = Angles["EF"].as<int>() == 1;
     
-    if(State_EF != temp_State)
-    {
-      State_EF = temp_State;
-      r6g.ToggleEndEffectorState(State_EF);
-    }
+    //Movimiento del robot.
+    MoveJ(FlagAngles, State_EF);
 
     //Limpia variable del mesaje. 
     ROSmessage = ""; 
@@ -131,7 +123,7 @@ void loop()
   Serial.println("OK"); //Confirmación de disponibilidad. 
 }
 
-void MoveJ(float *FlagAngles, int len)
+void MoveJ(float *FlagAngles, bool EndEffector)
 {
   ResetMotors();
   //Cálculo de pasos para cada articulación. 
@@ -149,6 +141,7 @@ void MoveJ(float *FlagAngles, int len)
   //Envío de pulsos a cada Driver.
   for(int i = 0; i <= Pmax+2; i++)
   {
+    digitalWrite(r6g.GetEndEffector(), EndEffector);    
     DoF1.AngularMove(FlagAngles[0], Steps[0],i);
     DoF2.AngularMove(FlagAngles[1], Steps[1],i);
     DoF3.AngularMove(FlagAngles[2], Steps[2],i);
