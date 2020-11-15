@@ -22,6 +22,9 @@ Joint DoF6;
 //Variable temporal para almacenamiento del mensaje serial.
 String ROSmessage = "";
 
+//Variable universal de control del efector final.
+int State_EF = 0;
+
 DynamicJsonDocument doc(1024);
 
 void setup()
@@ -66,8 +69,8 @@ void setup()
   DoF2.SetSoftwareLimits(-60,100);
   DoF3.SetSoftwareLimits(-70,60);
   DoF4.SetSoftwareLimits(-70,70);
-  DoF5.SetSoftwareLimits(-20,110); 
-  DoF6.SetSoftwareLimits(-180,180);
+  DoF5.SetSoftwareLimits(-10,90); 
+  DoF6.SetSoftwareLimits(-90,90);
 
   //Configuración de posiciones de inicio. 
   DoF1.SetInitialAngle(0);
@@ -80,13 +83,16 @@ void setup()
   //Reinicio de motores: Apagados. 
   ResetMotors();
 
-  pinMode(2,OUTPUT);
+  //Inicio de efector final [Electroimán]
+  r6g.InitEndEffector(2);
+
 }
 
 void loop()
 {
   String input = "";
   char var;
+
   //Lectura de mensaje en ROS.
   while(Serial.available())
   {
@@ -109,14 +115,19 @@ void loop()
     }
     //Movimiento del robot.
     MoveJ(FlagAngles,6);
+
+    //Actualiza el estado del efector final.
+    int temp_State = Angles["EF"].as<int>();
     
-    Serial.println(ROSmessage);
+    if(State_EF != temp_State)
+    {
+      State_EF = temp_State;
+      r6g.ToggleEndEffectorState(State_EF);
+    }
+
     //Limpia variable del mesaje. 
     ROSmessage = ""; 
-  }
-  
-  digitalWrite(2,HIGH);
-  
+  }  
   Serial.println("OK"); //Confirmación de disponibilidad. 
 }
 

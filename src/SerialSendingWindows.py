@@ -15,20 +15,19 @@ def SendData(name, target):
 	print("OK!")
 	arduino.close()
 
-def callback(data):
+def ToJSONMessage(data, EndEffector):
 	target = "{"
-	for i in range(0,5):
+	for i in range(0,6):
 		target += "\"J{}\": {},".format(i+1,data[i])
-	target += "\"J{}\": {}".format(6,data[5])
+	target += "\"EF\": {}".format(EndEffector)
 	target += "}"
 	PosName = "Position"
 	SendData(PosName,target)
 	 
-
-
-grados = [0]*7
+grados = [0]*6
 while True:
-
 	for i in range(0,6):
-		grados[i] = int(input("J{}: ".format(i+1)))
-	callback(grados)
+		grados[i] = float(input("J{}: ".format(i+1)))
+	EndEffectorStatus = int(input("Estado del efector final: "))
+	print(type(EndEffectorStatus))
+	ToJSONMessage(grados, EndEffectorStatus)
