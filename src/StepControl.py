@@ -17,7 +17,7 @@ def StepControl():
 	while not rospy.is_shutdown():
 		for i in range(0,6):
 			grados.position[i] = float(input("J{}: ".format(i+1)))
-		pub.publish(grados)8
+		pub.publish(grados)
 		rate.sleep()
 
 if __name__ == '__main__':
