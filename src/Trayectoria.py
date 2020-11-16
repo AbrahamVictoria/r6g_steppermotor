@@ -5,29 +5,35 @@ import numpy as np
 import rospy
 from sensor_msgs.msg import JointState
 
-"""
-#data = [["J1", "J2", "J3"], ["0", "0", "0"], ["90", "90", "90"]]
-data = [['J1', 'J2', 'J3'], ['0', '0', '0']]
+pathCSV = 'src/csvfiles/joints_values.csv'
 
-with open('joints_values.csv', 'w') as csvfile:
-        writer = csv.writer(csvfile, delimiter = ',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
-        #writer.writerow(['Spam'] * 5 + ['Baken Beans'])
-        writer.writerows(data)
-"""
-
+def VerificarUltimoEstado(position):
+	"""Verificar el último estado del robot en el archivo CSV para evitar sobreecribir datos"""
+	actualPose = []
+	with open(pathCSV, newline = '') as csvfile:
+		verificador = csv.reader(csvfile, delimiter = ',', quotechar = '|')
+		for angulos in verificador:
+			actualPose = angulos
+		index = 0
+		comparador = True
+		for joint in actualPose:
+			comparador = float(joint) == position[index] and comparador
+			index += 1
+	return comparador
 
 def toCSV(data):
-	estado = ""
-	rowValues = np.array([])
-	degrees = np.array(['J1','J2','J3','J4','J5','J6'])
-	for angulo in data.position:
-		estado += "{}, ".format(angulo)
-		rowValues = np.append(rowValues,'{}'.format(angulo))
-	degrees = np.vstack((degrees, rowValues))
-	with open('csvfiles/joints_values.csv', 'w') as csvfile:
-		writer = csv.writer(csvfile, delimiter = ',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
-		#writer.writerow(['Spam'] * 5 + ['Baken Beans'])
-		writer.writerows(degrees)
+	"""Enviar ángulos a archivo CSV para su próxima lectura y envío mediante el puerto serial"""
+	if not (VerificarUltimoEstado(data.position)):
+		print("Escribiendo nueva pose para el robot en archivo CSV ... ")
+		estado = ""
+		rowValues = np.array([])
+		for angulo in data.position:
+			estado += "{}, ".format(angulo)
+			rowValues = np.append(rowValues,'{}'.format(angulo))
+		with open(pathCSV, 'a') as csvfile:
+			writer = csv.writer(csvfile, delimiter = ',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
+			writer.writerow(rowValues)
+	
 
 def trayectoria():
 	rospy.init_node('Trayectoria', anonymous=True)
