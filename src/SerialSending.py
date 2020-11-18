@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 import rospy
-import math
 from r6g_steppermotor.msg import CurrentPose
 
 import serial, time
@@ -20,11 +19,10 @@ def ToJSONFile(robot):
 	comparative = True
 
 	for grado in robot.position:
-		grado_Degrees = round(math.degrees(grado),4)
-		comparative = grado_Degrees == valuesDoF[i] and comparative 
-		valuesDoF[i] = grado_Degrees
-		target += "\"J{}\": {},".format(i+1,grado_Degrees)
-		estado += "J{}: {} ".format(i+1,grado_Degrees)
+		comparative = grado == valuesDoF[i] and comparative 
+		valuesDoF[i] = grado
+		target += "\"J{}\": {},".format(i+1,grado)
+		estado += "J{}: {} ".format(i+1,grado)
 		i += 1
 	target += "\"EF\": {}".format(robot.endEffector)
 	estado += "EF: {}".format(robot.endEffector)

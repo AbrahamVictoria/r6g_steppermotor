@@ -3,9 +3,14 @@
 import csv
 import numpy as np
 import rospy
+import math
 from sensor_msgs.msg import JointState
 
 pathCSV = 'src/csvfiles/joints_values.csv'
+
+def InitCSVFile():
+	with open(pathCSV, 'w') as csvfile:
+		writer = csv.writer(csvfile, delimiter = ',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
 
 def VerificarUltimoEstado(position):
 	"""Verificar el último estado del robot en el archivo CSV para evitar sobreecribir datos"""
@@ -17,8 +22,9 @@ def VerificarUltimoEstado(position):
 		index = 0
 		comparador = True
 		for joint in actualPose:
-			comparador = float(joint) == position[index] and comparador
+			if index < 6: comparador = float(joint) == round(math.degrees(position[index]),4) and comparador
 			index += 1
+	if len(actualPose) == 0 : comparador = False
 	return comparador
 
 def toCSV(data):
@@ -28,9 +34,11 @@ def toCSV(data):
 		estado = ""
 		rowValues = np.array([])
 		for angulo in data.position:
+			angulo = round(math.degrees(angulo),4)
 			estado += "{}, ".format(angulo)
 			rowValues = np.append(rowValues,'{}'.format(angulo))
-		with open(pathCSV, 'a') as csvfile:
+		rowValues = np.append(rowValues,'0')		
+		with open(pathCSV, 'w') as csvfile:
 			writer = csv.writer(csvfile, delimiter = ',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
 			writer.writerow(rowValues)
 	
@@ -44,4 +52,5 @@ def trayectoria():
 
 
 if __name__ == '__main__':
+	InitCSVFile()
 	trayectoria()
